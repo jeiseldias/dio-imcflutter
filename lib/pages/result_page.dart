@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:imc/model/imc.dart';
 
 class ResultPage extends StatefulWidget {
-  const ResultPage({super.key});
+  final Imc imc;
+  const ResultPage({super.key, required this.imc});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -39,20 +41,21 @@ class _ResultPageState extends State<ResultPage> {
                           padding: const EdgeInsets.symmetric(vertical: 48),
                           margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                           color: const Color(0xFF1D1F30),
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  "SOBREPESO",
-                                  style: TextStyle(
+                                  widget.imc.retornaResultado(
+                                      widget.imc.calcularIMC()),
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.lightGreen),
                                 ),
                               ),
-                              Expanded(
+                              const Expanded(
                                 flex: 1,
                                 child: SizedBox(
                                   height: 24,
@@ -61,8 +64,8 @@ class _ResultPageState extends State<ResultPage> {
                               Expanded(
                                 flex: 3,
                                 child: Text(
-                                  "27.52",
-                                  style: TextStyle(
+                                  widget.imc.calcularIMC().toStringAsFixed(2),
+                                  style: const TextStyle(
                                       fontSize: 60,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),

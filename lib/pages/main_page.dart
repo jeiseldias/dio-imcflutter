@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:imc/modal/imc.dart';
+import 'package:imc/model/imc.dart';
 import 'package:imc/pages/form_page.dart';
 import 'package:imc/pages/history_page.dart';
 
@@ -36,9 +36,9 @@ class _MainPageState extends State<MainPage> {
                     pageNumber = value;
                   });
                 },
-                children: const [
-                  FormPage(),
-                  HistoryPage(),
+                children: [
+                  FormPage(historico: historico),
+                  HistoryPage(historico: historico),
                 ],
               ),
             ),

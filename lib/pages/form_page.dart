@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:imc/model/imc.dart';
 import 'package:imc/pages/result_page.dart';
 
 class FormPage extends StatefulWidget {
-  const FormPage({super.key});
+  final List<Imc> historico;
+  const FormPage({super.key, required this.historico});
 
   @override
   State<FormPage> createState() => _FormPageState();
@@ -12,9 +14,15 @@ class _FormPageState extends State<FormPage> {
   int alturaEscolhida = 175;
   int pesoEscolhido = 80;
 
-  void handleButton() {
+  void handleCalcular() {
+    widget.historico.add(Imc(alturaEscolhida, pesoEscolhido));
+
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const ResultPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => ResultPage(
+                  imc: Imc(alturaEscolhida, pesoEscolhido),
+                )));
   }
 
   @override
@@ -148,7 +156,7 @@ class _FormPageState extends State<FormPage> {
         Container(
           width: double.infinity,
           child: TextButton(
-            onPressed: handleButton,
+            onPressed: handleCalcular,
             style: TextButton.styleFrom(
                 backgroundColor: const Color(0xffD83459),
                 foregroundColor: Colors.white),
