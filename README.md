@@ -12,3 +12,4 @@ Neste desafio o objetivo era criar uma calculadora simples para calcular o IMC (
 - [x]  Exibir resultados em uma lista
 
 ### Demonstração
+![imcflutter](https://github.com/jeiseldias/dio-imcflutter/assets/3492287/713c3ccc-b780-4e15-82a6-e634dfc834f4)
