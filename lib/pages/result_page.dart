@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:imc/model/imc.dart';
+import 'package:imc/model/imc_model.dart';
+import 'package:imc/repositories/imc_repository.dart';
 
 class ResultPage extends StatefulWidget {
-  final Imc imc;
-  const ResultPage({super.key, required this.imc});
+  const ResultPage({super.key});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
+  final IMCRepository _imcRepository = IMCRepository();
+  ImcModel imcModel = ImcModel(0, 0);
+
+  @override
+  void initState() {
+    super.initState();
+    obterLeitura();
+  }
+
+  void obterLeitura() async {
+    imcModel = await _imcRepository.obterUltimaLeitura();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,8 +61,8 @@ class _ResultPageState extends State<ResultPage> {
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  widget.imc.retornaResultado(
-                                      widget.imc.calcularIMC()),
+                                  imcModel
+                                      .retornaResultado(imcModel.calcularIMC()),
                                   style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -64,7 +78,7 @@ class _ResultPageState extends State<ResultPage> {
                               Expanded(
                                 flex: 3,
                                 child: Text(
-                                  widget.imc.calcularIMC().toStringAsFixed(2),
+                                  imcModel.calcularIMC().toStringAsFixed(2),
                                   style: const TextStyle(
                                       fontSize: 60,
                                       fontWeight: FontWeight.bold,

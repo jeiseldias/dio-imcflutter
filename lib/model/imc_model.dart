@@ -1,9 +1,11 @@
 import 'dart:math';
 
-class Imc {
+class ImcModel {
+  int _id = 0;
   int _altura = 0;
   int _peso = 0;
 
+  int get id => _id;
   int get altura => _altura;
 
   int get peso => _peso;
@@ -53,5 +55,9 @@ class Imc {
     return resposta.toUpperCase();
   }
 
-  Imc(this._altura, this._peso);
+  ImcModel(int altura, int peso) {
+    _id = 0;
+    _altura = altura;
+    _peso = peso;
+  }
 }
