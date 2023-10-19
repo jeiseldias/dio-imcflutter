@@ -10,7 +10,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  UsuarioRepository _usuarioRepository = UsuarioRepository();
   UsuarioModel _usuarioModel = UsuarioModel("", 175);
   TextEditingController _nomeController = TextEditingController();
 
@@ -22,19 +21,19 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void handleSalvar() {
     _usuarioModel.nome = _nomeController.text;
-    _usuarioRepository.alterarDados(_usuarioModel);
+    UsuarioRepository.alterarDados(_usuarioModel);
   }
 
   void obterDados() async {
-    _usuarioModel = await _usuarioRepository.obterDados();
+    _usuarioModel = await UsuarioRepository.obterDados();
     _nomeController.text = _usuarioModel.nome;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      Column(
+    return SingleChildScrollView(
+      child: Column(
         children: [
           Container(
             width: double.infinity,
@@ -125,6 +124,6 @@ class _SettingsPageState extends State<SettingsPage> {
           )
         ],
       ),
-    ]);
+    );
   }
 }

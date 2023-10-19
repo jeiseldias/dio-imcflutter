@@ -2,14 +2,14 @@ import 'package:imc/model/usuario_model.dart';
 import 'package:imc/repositories/sqlite_database.dart';
 
 class UsuarioRepository {
-  Future<void> alterarDados(UsuarioModel usuarioModel) async {
+  static Future<void> alterarDados(UsuarioModel usuarioModel) async {
     var db = await SQLiteDatabase().obterDB();
 
     db.rawUpdate("UPDATE dados SET nome = ?, altura = ?",
         [usuarioModel.nome, usuarioModel.altura]);
   }
 
-  Future<UsuarioModel> obterDados() async {
+  static Future<UsuarioModel> obterDados() async {
     var db = await SQLiteDatabase().obterDB();
     var result = await db.rawQuery("SELECT * FROM dados LIMIT 1");
 

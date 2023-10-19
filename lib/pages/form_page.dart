@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imc/model/imc_model.dart';
+import 'package:imc/model/usuario_model.dart';
 import 'package:imc/pages/result_page.dart';
 import 'package:imc/repositories/imc_repository.dart';
+import 'package:imc/repositories/usuario_repository.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -12,12 +14,12 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   IMCRepository imcRepository = IMCRepository();
-  int alturaEscolhida = 175;
   int pesoEscolhido = 80;
 
   void handleCalcular() async {
-    await imcRepository.salvarLeitura(ImcModel(alturaEscolhida, pesoEscolhido));
-
+    UsuarioModel dadosUsuario = await UsuarioRepository.obterDados();
+    await imcRepository
+        .salvarLeitura(ImcModel(dadosUsuario.altura, pesoEscolhido));
     irParaResultado();
   }
 
@@ -33,7 +35,6 @@ class _FormPageState extends State<FormPage> {
         Expanded(
           child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 48),
               color: const Color(0xFF1D1F30),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
