@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
-import '../model/imc.dart';
+import 'package:imc/repositories/imc_repository.dart';
+import '../model/imc_model.dart';
 
 class HistoryPage extends StatefulWidget {
-  final List<Imc> historico;
-  const HistoryPage({super.key, required this.historico});
+  const HistoryPage({super.key});
 
   @override
   State<HistoryPage> createState() => _HistoryPageState();
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  IMCRepository imcRepository = IMCRepository();
+  List<ImcModel> _leituras = [];
+
+  @override
+  void initState() {
+    super.initState();
+    obterLeituras();
+  }
+
+  void obterLeituras() async {
+    _leituras = await imcRepository.obterLeituras();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: widget.historico.length,
+      itemCount: _leituras.length,
       itemBuilder: (BuildContext bc, int index) {
-        var currentIMC = widget.historico[index];
+        var currentIMC = _leituras[index];
         return ListTile(
           title: Text(
             currentIMC.retornaResultado(currentIMC.calcularIMC()),

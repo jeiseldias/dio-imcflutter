@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:imc/model/imc.dart';
+import 'package:imc/model/imc_model.dart';
 import 'package:imc/pages/form_page.dart';
 import 'package:imc/pages/history_page.dart';
+import 'package:imc/pages/settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,7 +14,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   PageController controller = PageController(initialPage: 0);
   int pageNumber = 0;
-  List<Imc> historico = [];
+  List<ImcModel> historico = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +37,10 @@ class _MainPageState extends State<MainPage> {
                     pageNumber = value;
                   });
                 },
-                children: [
-                  FormPage(historico: historico),
-                  HistoryPage(historico: historico),
+                children: const [
+                  FormPage(),
+                  HistoryPage(),
+                  SettingsPage(),
                 ],
               ),
             ),
@@ -57,6 +59,8 @@ class _MainPageState extends State<MainPage> {
                   label: "Calculadora", icon: Icon(Icons.calculate)),
               BottomNavigationBarItem(
                   label: "Histórico", icon: Icon(Icons.history)),
+              BottomNavigationBarItem(
+                  label: "Dados Pessoais", icon: Icon(Icons.person)),
             ],
           ),
         ]),
